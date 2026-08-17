@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumin | Next-Gen Entertainment</title>
+    <meta name="description" content="Simple, buffer-free streaming. Get Lumin and upgrade your entertainment today.">
+    
+    <!-- Google Fonts: Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        deep: '#050505',
+                        surface: '#121212',
+                        card: '#1a1a1a',
+                        lumin: '#f43f5e', // Rose/Pink
+                        glow: '#f59e0b', // Amber
+                    },
+                    animation: {
+                        'blob': 'blob 7s infinite',
+                        'fade-in': 'fadeIn 0.8s ease-out forwards',
+                        'scale-up': 'scaleUp 0.3s ease-out forwards',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        scaleUp: {
+                            '0%': { opacity: '0', transform: 'scale(0.95)' },
+                            '100%': { opacity: '1', transform: 'scale(1)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #050505;
+            color: #f8fafc;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, #f43f5e, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px -10px rgba(244, 63, 94, 0.3);
+            border-color: rgba(244, 63, 94, 0.5);
+        }
+    </style>
+</head>
+<body class="relative">
+
+    <!-- Abstract Background -->
+    <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+        <div class="absolute top-0 left-1/4 w-96 h-96 bg-lumin/20 rounded-full mix-blend-screen filter blur-3xl opacity-30 animate-blob"></div>
+        <div class="absolute top-0 right-1/4 w-96 h-96 bg-glow/20 rounded-full mix-blend-screen filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
+        <div class="absolute -bottom-32 left-1/2 w-96 h-96 bg-purple-500/20 rounded-full mix-blend-screen filter blur-3xl opacity-30 animate-blob animation-delay-4000"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 top-0 bg-deep/80 backdrop-blur-md border-b border-white/10">
+        <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="#" class="text-3xl font-extrabold tracking-tighter">
+                LU<span class="text-gradient">MIN</span>
+            </a>
+            <div class="hidden md:flex gap-8 font-semibold text-gray-300">
+                <a href="#pricing" class="hover:text-white transition">Pricing</a>
+                <a href="#setup" class="hover:text-white transition">Setup</a>
+                <a href="#contact" class="hover:text-white transition">Contact</a>
+            </div>
+            <a href="https://wa.me/17059103755?text=Hi%20Lumin,%20I'd%20like%20to%20get%20started!" target="_blank" class="px-6 py-2 rounded-full bg-white text-black font-bold hover:bg-gray-200 transition">
+                WhatsApp Us
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative z-10 pt-40 pb-20 px-6 max-w-5xl mx-auto text-center flex flex-col items-center animate-fade-in">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-sm font-semibold mb-8">
+            <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span> Systems Operational
+        </div>
+        <h1 class="text-5xl md:text-7xl font-extrabold leading-tight mb-6">
+            Entertainment, <br> <span class="text-gradient">Simplified.</span>
+        </h1>
+        <p class="text-xl text-gray-400 max-w-2xl mb-10">
+            Cut the cord and upgrade to seamless, high-quality streaming. No hardware, no contracts, just instant access.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 w-full justify-center">
+            <a href="#pricing" class="px-8 py-4 rounded-xl bg-gradient-to-r from-lumin to-glow text-white font-bold text-lg hover:opacity-90 transition shadow-[0_0_30px_rgba(244,63,94,0.15)]">
+                View Pricing
+            </a>
+            <button onclick="openModal('trial')" class="px-8 py-4 rounded-xl bg-surface border border-white/10 text-white font-bold text-lg hover:bg-card transition">
+                Request Free Trial
+            </button>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="relative z-10 py-20 px-6 max-w-6xl mx-auto scroll-mt-20">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-extrabold mb-4">Straightforward Pricing</h2>
+            <p class="text-gray-400">Pick a tier and get activated in minutes.</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <!-- Plan 1 -->
+            <div class="bg-card border border-white/10 rounded-3xl p-8 card-hover flex flex-col">
+                <h3 class="text-2xl font-bold mb-2">Essential</h3>
+                <p class="text-gray-400 mb-6">Perfect for standard viewing on any device.</p>
+                
+                <!-- Dynamic Price Wrapper -->
+                <div id="pricing-wrap-1" class="mb-8 opacity-0 transition-opacity duration-700">
+                    <span id="price-essential" class="text-5xl font-extrabold"></span>
+                    <span id="currency-essential" class="text-gray-400"></span>
+                </div>
+
+                <ul class="space-y-4 mb-8 flex-1 text-gray-300">
+                    <li class="flex items-center gap-3">
+                        <svg class="w-5 h-5 text-lumin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        Full Channel Roster
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <svg class="w-5 h-5 text-lumin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        Multi-Device Support
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <svg class="w-5 h-5 text-lumin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        Standard Support
+                    </li>
+                </ul>
+                <button onclick="openModal('essential')" class="block w-full py-4 text-center rounded-xl bg-surface border border-white/10 hover:bg-white hover:text-black font-bold transition">
+                    Order Now
+                </button>
+            </div>
+
+            <!-- Plan 2 -->
+            <div class="bg-surface border border-lumin rounded-3xl p-8 card-hover flex flex-col relative shadow-[0_0_30px_rgba(244,63,94,0.15)]">
+                <div class="absolute top-0 right-8 transform -translate-y-1/2 bg-gradient-to-r from-lumin to-glow px-4 py-1 rounded-full text-xs font-bold uppercase">
+                    Premium
+                </div>
+                <h3 class="text-2xl font-bold mb-2">Pro Sports</h3>
+                <p class="text-gray-400 mb-6">High-performance streams for live events.</p>
+                
+                <!-- Dynamic Price Wrapper -->
+                <div id="pricing-wrap-2" class="mb-8 opacity-0 transition-opacity duration-700">
+                    <span id="price-premium" class="text-5xl font-extrabold"></span>
+                    <span id="currency-premium" class="text-gray-400"></span>
+                </div>
+
+                <ul class="space-y-4 mb-8 flex-1 text-gray-300">
+                    <li class="flex items-center gap-3">
+                        <svg class="w-5 h-5 text-glow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        Anti-Freeze Technology
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <svg class="w-5 h-5 text-glow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        High-Bitrate Sports Feeds
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <svg class="w-5 h-5 text-glow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        Priority 24/7 Support
+                    </li>
+                </ul>
+                <button onclick="openModal('premium')" class="block w-full py-4 text-center rounded-xl bg-white text-black hover:bg-gray-200 font-bold transition">
+                    Order Now
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Setup Guide Section -->
+    <section id="setup" class="relative z-10 py-20 px-6 max-w-6xl mx-auto scroll-mt-20">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-extrabold mb-4">Quick Setup Guide</h2>
+            <p class="text-gray-400">Follow these steps to get your device ready before messaging us.</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8">
+            <!-- Firestick / Android -->
+            <div class="bg-card border border-white/10 rounded-3xl p-8">
+                <h3 class="text-xl font-bold mb-4 flex items-center gap-3">
+                    <span class="text-2xl">🔥</span> Firestick & Android
+                </h3>
+                <div class="space-y-6 text-gray-300 text-sm">
+                    <div>
+                        <p class="font-bold text-white mb-1">Option 1: STB Emu Pro</p>
+                        <ol class="list-decimal pl-4 space-y-1 text-gray-400">
+                            <li>Install the "Downloader" app.</li>
+                            <li>Enter code <strong class="text-white">381535</strong> to install STB Emu.</li>
+                            <li>Open App > Settings > Profiles > STB Configuration.</li>
+                            <li>Find your <strong class="text-white">MAC Address</strong> and send it to us.</li>
+                        </ol>
+                    </div>
+                    <div>
+                        <p class="font-bold text-white mb-1">Option 2: TiviMate</p>
+                        <ol class="list-decimal pl-4 space-y-1 text-gray-400">
+                            <li>Install the "Downloader" app.</li>
+                            <li>Enter code <strong class="text-white">272483</strong> to install TiviMate.</li>
+                            <li>Message us to get your Username & Password.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Smart TV -->
+            <div class="bg-card border border-white/10 rounded-3xl p-8">
+                <h3 class="text-xl font-bold mb-4 flex items-center gap-3">
+                    <span class="text-2xl">📺</span> Samsung & LG Smart TV
+                </h3>
+                <div class="space-y-6 text-gray-300 text-sm">
+                    <div>
+                        <p class="font-bold text-white mb-1">Option 1: IBO Player</p>
+                        <ol class="list-decimal pl-4 space-y-1 text-gray-400">
+                            <li>Open your TV's App Store.</li>
+                            <li>Search for and install <strong class="text-white">IBO Player Pro</strong>.</li>
+                            <li>Open the app and note down your <strong class="text-white">Device ID</strong> and <strong class="text-white">Device Key</strong>.</li>
+                            <li>Send both codes to us to activate.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section id="contact" class="relative z-10 py-20 px-6 max-w-3xl mx-auto scroll-mt-20">
+        <div class="text-center mb-12">
+            <h2 class="text-4xl font-extrabold mb-4">Get in Touch</h2>
+            <p class="text-gray-400">Have questions? Send us an email or reach out instantly via WhatsApp.</p>
+        </div>
+
+        <form action="https://formsubmit.co/rahul19979ht@gmail.com" method="POST" class="bg-card border border-white/10 rounded-3xl p-8 space-y-6">
+            <!-- Security & Config for FormSubmit -->
+            <input type="text" name="_honey" style="display:none">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_subject" value="New Contact Inquiry - Lumin Website">
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-400 mb-2">Name</label>
+                    <input type="text" name="name" required class="w-full bg-surface border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-lumin transition" placeholder="Your Name">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-400 mb-2">Email</label>
+                    <input type="email" name="email" required class="w-full bg-surface border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-lumin transition" placeholder="you@email.com">
+                </div>
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-gray-400 mb-2">Message</label>
+                <textarea name="message" rows="4" required class="w-full bg-surface border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-lumin transition" placeholder="How can we help?"></textarea>
+            </div>
+            <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-lumin to-glow text-white font-bold text-lg hover:opacity-90 transition shadow-[0_0_30px_rgba(244,63,94,0.15)]">
+                Send Message
+            </button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer class="relative z-10 border-t border-white/10 bg-deep pt-12 pb-8 mt-4">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-2xl font-extrabold tracking-tighter text-gray-500">
+                LU<span class="text-gray-400">MIN</span>
+            </div>
+            <p class="text-gray-600 text-sm">
+                &copy; 2026 Lumin Media. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Order Pop-Up Modal -->
+    <div id="order-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4">
+        <!-- Backdrop -->
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm cursor-pointer" onclick="closeModal()"></div>
+        
+        <!-- Modal Content -->
+        <div class="relative bg-surface border border-white/10 rounded-3xl p-8 max-w-md w-full shadow-2xl animate-scale-up z-10">
+            <button onclick="closeModal()" class="absolute top-5 right-5 text-gray-400 hover:text-white transition">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            
+            <h3 class="text-2xl font-bold mb-2">Complete Your Order</h3>
+            <p class="text-gray-400 mb-8" id="modal-desc">Choose how you would like to securely connect with us to get activated.</p>
+            
+            <div class="space-y-4">
+                <!-- WhatsApp Option (Primary) -->
+                <a id="modal-wa-btn" href="#" target="_blank" class="flex items-center justify-center gap-3 w-full py-4 rounded-xl bg-[#25D366] text-white font-bold text-lg hover:bg-[#20b858] transition shadow-[0_0_20px_rgba(37,211,102,0.2)]">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.48 1.32 4.98L2.05 22l5.25-1.38a9.9 9.9 0 004.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.85 9.85 0 0012.04 2m0 1.67a8.2 8.2 0 018.24 8.24c0 4.55-3.7 8.24-8.25 8.24a8.2 8.2 0 01-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.18 8.18 0 01-1.26-4.38c0-4.55 3.7-8.24 8.25-8.24m-4.52 4.7c-.16 0-.42.06-.64.3-.22.24-.85.83-.85 2.02 0 1.19.87 2.34.99 2.5.12.16 1.7 2.72 4.2 3.71 2.08.82 2.5.66 2.95.62.45-.04 1.46-.6 1.66-1.18.2-.58.2-1.07.14-1.18-.06-.1-.22-.16-.46-.28-.24-.12-1.46-.72-1.68-.8-.23-.08-.39-.12-.56.12-.16.24-.64.8-.78.97-.14.16-.29.18-.53.06-.24-.12-1.02-.38-1.94-1.2-.72-.64-1.2-1.43-1.34-1.67-.14-.24-.02-.37.1-.49.11-.11.24-.29.36-.43.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.56-1.35-.77-1.84-.2-.48-.4-.42-.56-.42h-.4z"/></svg>
+                    Order via WhatsApp
+                </a>
+                <!-- Email Option (Secondary) -->
+                <a id="modal-email-btn" href="#" class="flex items-center justify-center gap-3 w-full py-4 rounded-xl bg-card border border-white/10 text-white font-bold text-lg hover:bg-white hover:text-black transition">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                    Order via Email
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Invisible Geo-IP Tracking & Logic -->
+    <script>
+        // Global variables to store the dynamically generated links
+        let dynamicLinks = {
+            trial: {
+                wa: "https://wa.me/17059103755?text=Hi,%20I%20want%20a%20free%20trial",
+                email: "mailto:rahul19979ht@gmail.com?subject=Requesting%20Free%20Trial&body=Hi,%20I'd%20like%20to%20request%20a%20free%20trial."
+            },
+            essential: { wa: "", email: "" },
+            premium: { wa: "", email: "" }
+        };
+
+        // Modal Logic
+        function openModal(planType) {
+            const modal = document.getElementById('order-modal');
+            const waBtn = document.getElementById('modal-wa-btn');
+            const emailBtn = document.getElementById('modal-email-btn');
+            
+            // Assign the correct pre-calculated links to the buttons
+            waBtn.href = dynamicLinks[planType].wa;
+            emailBtn.href = dynamicLinks[planType].email;
+            
+            // Show modal
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('order-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        document.addEventListener("DOMContentLoaded", async () => {
+            // Your Base Pricing in CAD
+            const basePrices = { essential: 75, premium: 100 };
+            
+            const priceWrap1 = document.getElementById('pricing-wrap-1');
+            const priceWrap2 = document.getElementById('pricing-wrap-2');
+
+            // Fallback function in case the user has adblockers preventing the API calls
+            const setFallbackPrices = () => {
+                document.getElementById('price-essential').innerText = '$55';
+                document.getElementById('currency-essential').innerText = ' USD / Year';
+                document.getElementById('price-premium').innerText = '$75';
+                document.getElementById('currency-premium').innerText = ' USD / Year';
+
+                dynamicLinks.essential.wa = `https://wa.me/17059103755?text=Hi,%20I'd%20like%20to%20order%20the%20Essential%20Plan%20for%20$55%20USD`;
+                dynamicLinks.essential.email = `mailto:rahul19979ht@gmail.com?subject=Order%20Inquiry%20-%20Essential%20Plan&body=Hi,%20I'd%20like%20to%20order%20the%20Essential%20Plan%20for%20$55%20USD.`;
+                
+                dynamicLinks.premium.wa = `https://wa.me/17059103755?text=Hi,%20I'd%20like%20to%20order%20the%20Pro%20Sports%20Plan%20for%20$75%20USD`;
+                dynamicLinks.premium.email = `mailto:rahul19979ht@gmail.com?subject=Order%20Inquiry%20-%20Pro%20Sports%20Plan&body=Hi,%20I'd%20like%20to%20order%20the%20Pro%20Sports%20Plan%20for%20$75%20USD.`;
+                
+                priceWrap1.classList.remove('opacity-0');
+                priceWrap2.classList.remove('opacity-0');
+            };
+
+            try {
+                // 1. Get User's Country Code
+                const geoRes = await fetch('https://get.geojs.io/v1/ip/country.json');
+                const geoData = await geoRes.json();
+                const country = geoData.country;
+
+                // 2. Map Country to Currency
+                const euroCountries = ['AT', 'BE', 'CY', 'EE', 'FI', 'FR', 'DE', 'GR', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL', 'PT', 'SK', 'SI', 'ES'];
+                let currency = 'USD';
+                let symbol = '$';
+
+                if (country === 'CA') { currency = 'CAD'; symbol = '$'; }
+                else if (country === 'GB') { currency = 'GBP'; symbol = '£'; }
+                else if (country === 'AU') { currency = 'AUD'; symbol = 'A$'; }
+                else if (euroCountries.includes(country)) { currency = 'EUR'; symbol = '€'; }
+                else { currency = 'USD'; symbol = '$'; }
+
+                // 3. Get Exchange Rate (CAD to Target Currency)
+                let rate = 1;
+                if (currency !== 'CAD') {
+                    const rateRes = await fetch('https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/cad.json');
+                    const rateData = await rateRes.json();
+                    rate = rateData.cad[currency.toLowerCase()] || 1;
+                }
+
+                // 4. Calculate New Prices
+                const priceEss = Math.round(basePrices.essential * rate);
+                const pricePro = Math.round(basePrices.premium * rate);
+
+                // 5. Update HTML Elements visibly
+                document.getElementById('price-essential').innerText = symbol + priceEss;
+                document.getElementById('currency-essential').innerText = ' ' + currency + ' / Year';
+                document.getElementById('price-premium').innerText = symbol + pricePro;
+                document.getElementById('currency-premium').innerText = ' ' + currency + ' / Year';
+
+                // 6. Pre-calculate the links for the pop-up modal
+                dynamicLinks.essential.wa = `https://wa.me/17059103755?text=Hi,%20I'd%20like%20to%20order%20the%20Essential%20Plan%20for%20${symbol}${priceEss}%20${currency}`;
+                dynamicLinks.essential.email = `mailto:rahul19979ht@gmail.com?subject=Order%20Inquiry%20-%20Essential%20Plan&body=Hi,%20I'd%20like%20to%20order%20the%20Essential%20Plan%20for%20${symbol}${priceEss}%20${currency}.`;
+
+                dynamicLinks.premium.wa = `https://wa.me/17059103755?text=Hi,%20I'd%20like%20to%20order%20the%20Pro%20Sports%20Plan%20for%20${symbol}${pricePro}%20${currency}`;
+                dynamicLinks.premium.email = `mailto:rahul19979ht@gmail.com?subject=Order%20Inquiry%20-%20Pro%20Sports%20Plan&body=Hi,%20I'd%20like%20to%20order%20the%20Pro%20Sports%20Plan%20for%20${symbol}${pricePro}%20${currency}.`;
+
+                // 7. Fade the prices in smoothly
+                priceWrap1.classList.remove('opacity-0');
+                priceWrap2.classList.remove('opacity-0');
+
+            } catch (error) {
+                console.error("Geo-IP Pricing failed, defaulting to USD fallback.");
+                setFallbackPrices();
+            }
+        });
+    </script>
+</body>
+</html>

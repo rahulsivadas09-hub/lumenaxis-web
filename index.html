@@ -259,7 +259,7 @@
             <!-- Security & Config for FormSubmit -->
             <input type="text" name="_honey" style="display:none">
             <input type="hidden" name="_captcha" value="false">
-            <input type="hidden" name="_subject" value="New Contact Inquiry - Lumin Website">
+            <input type="hidden" name="_subject" id="contact-form-subject" value="New Contact Inquiry - Lumin Website">
 
             <div class="grid md:grid-cols-2 gap-6">
                 <div>
@@ -273,7 +273,7 @@
             </div>
             <div>
                 <label class="block text-sm font-semibold text-gray-400 mb-2">Message</label>
-                <textarea name="message" rows="4" required class="w-full bg-surface border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-lumin transition" placeholder="How can we help?"></textarea>
+                <textarea name="message" id="contact-form-message" rows="4" required class="w-full bg-surface border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-lumin transition" placeholder="How can we help?"></textarea>
             </div>
             <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-lumin to-glow text-white font-bold text-lg hover:opacity-90 transition shadow-[0_0_30px_rgba(244,63,94,0.15)]">
                 Send Message
@@ -314,9 +314,9 @@
                     Order via WhatsApp
                 </a>
                 <!-- Email Option (Secondary) -->
-                <a id="modal-email-btn" href="#" class="flex items-center justify-center gap-3 w-full py-4 rounded-xl bg-card border border-white/10 text-white font-bold text-lg hover:bg-white hover:text-black transition">
+                <a id="modal-email-btn" href="#contact" class="flex items-center justify-center gap-3 w-full py-4 rounded-xl bg-card border border-white/10 text-white font-bold text-lg hover:bg-white hover:text-black transition">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                    Order via Email
+                    Fill Out Contact Form
                 </a>
             </div>
         </div>
@@ -327,11 +327,10 @@
         // Global variables to store the dynamically generated links
         let dynamicLinks = {
             trial: {
-                wa: "https://wa.me/17059103755?text=Hi,%20I%20want%20a%20free%20trial",
-                email: "mailto:rahul19979ht@gmail.com?subject=Requesting%20Free%20Trial&body=Hi,%20I'd%20like%20to%20request%20a%20free%20trial."
+                wa: "https://wa.me/17059103755?text=Hi,%20I%20want%20a%20free%20trial"
             },
-            essential: { wa: "", email: "" },
-            premium: { wa: "", email: "" }
+            essential: { wa: "", priceText: "" },
+            premium: { wa: "", priceText: "" }
         };
 
         // Modal Logic
@@ -339,11 +338,17 @@
             const modal = document.getElementById('order-modal');
             const waBtn = document.getElementById('modal-wa-btn');
             const emailBtn = document.getElementById('modal-email-btn');
-            
-            // Assign the correct pre-calculated links to the buttons
+
+            // Assign the correct pre-calculated WhatsApp link
             waBtn.href = dynamicLinks[planType].wa;
-            emailBtn.href = dynamicLinks[planType].email;
-            
+
+            // The "Email" option now fills and jumps to the on-page contact form
+            // instead of opening a mailto: link with a personal address.
+            emailBtn.onclick = function (e) {
+                e.preventDefault();
+                fillContactForm(planType);
+            };
+
             // Show modal
             modal.classList.remove('hidden');
             modal.classList.add('flex');
@@ -353,6 +358,28 @@
             const modal = document.getElementById('order-modal');
             modal.classList.add('hidden');
             modal.classList.remove('flex');
+        }
+
+        function fillContactForm(planType) {
+            const subjects = {
+                trial: 'Requesting Free Trial - Lumin',
+                essential: 'Order Inquiry - Essential Plan',
+                premium: 'Order Inquiry - Pro Sports Plan'
+            };
+            const messages = {
+                trial: "Hi, I'd like to request a free trial.",
+                essential: `Hi, I'd like to order the Essential Plan${dynamicLinks.essential.priceText ? ' for ' + dynamicLinks.essential.priceText : ''}.`,
+                premium: `Hi, I'd like to order the Pro Sports Plan${dynamicLinks.premium.priceText ? ' for ' + dynamicLinks.premium.priceText : ''}.`
+            };
+
+            const subjectField = document.getElementById('contact-form-subject');
+            const messageField = document.getElementById('contact-form-message');
+            if (subjectField) subjectField.value = subjects[planType] || 'New Contact Inquiry - Lumin Website';
+            if (messageField) messageField.value = messages[planType] || '';
+
+            closeModal();
+            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+            if (messageField) messageField.focus();
         }
 
         document.addEventListener("DOMContentLoaded", async () => {
@@ -370,10 +397,10 @@
                 document.getElementById('currency-premium').innerText = ' USD / Year';
 
                 dynamicLinks.essential.wa = `https://wa.me/17059103755?text=Hi,%20I'd%20like%20to%20order%20the%20Essential%20Plan%20for%20$55%20USD`;
-                dynamicLinks.essential.email = `mailto:rahul19979ht@gmail.com?subject=Order%20Inquiry%20-%20Essential%20Plan&body=Hi,%20I'd%20like%20to%20order%20the%20Essential%20Plan%20for%20$55%20USD.`;
-                
+                dynamicLinks.essential.priceText = '$55 USD';
+
                 dynamicLinks.premium.wa = `https://wa.me/17059103755?text=Hi,%20I'd%20like%20to%20order%20the%20Pro%20Sports%20Plan%20for%20$75%20USD`;
-                dynamicLinks.premium.email = `mailto:rahul19979ht@gmail.com?subject=Order%20Inquiry%20-%20Pro%20Sports%20Plan&body=Hi,%20I'd%20like%20to%20order%20the%20Pro%20Sports%20Plan%20for%20$75%20USD.`;
+                dynamicLinks.premium.priceText = '$75 USD';
                 
                 priceWrap1.classList.remove('opacity-0');
                 priceWrap2.classList.remove('opacity-0');
@@ -414,12 +441,12 @@
                 document.getElementById('price-premium').innerText = symbol + pricePro;
                 document.getElementById('currency-premium').innerText = ' ' + currency + ' / Year';
 
-                // 6. Pre-calculate the links for the pop-up modal
+                // 6. Pre-calculate the WhatsApp link and store a plain-text price for the contact form message
                 dynamicLinks.essential.wa = `https://wa.me/17059103755?text=Hi,%20I'd%20like%20to%20order%20the%20Essential%20Plan%20for%20${symbol}${priceEss}%20${currency}`;
-                dynamicLinks.essential.email = `mailto:rahul19979ht@gmail.com?subject=Order%20Inquiry%20-%20Essential%20Plan&body=Hi,%20I'd%20like%20to%20order%20the%20Essential%20Plan%20for%20${symbol}${priceEss}%20${currency}.`;
+                dynamicLinks.essential.priceText = `${symbol}${priceEss} ${currency}`;
 
                 dynamicLinks.premium.wa = `https://wa.me/17059103755?text=Hi,%20I'd%20like%20to%20order%20the%20Pro%20Sports%20Plan%20for%20${symbol}${pricePro}%20${currency}`;
-                dynamicLinks.premium.email = `mailto:rahul19979ht@gmail.com?subject=Order%20Inquiry%20-%20Pro%20Sports%20Plan&body=Hi,%20I'd%20like%20to%20order%20the%20Pro%20Sports%20Plan%20for%20${symbol}${pricePro}%20${currency}.`;
+                dynamicLinks.premium.priceText = `${symbol}${pricePro} ${currency}`;
 
                 // 7. Fade the prices in smoothly
                 priceWrap1.classList.remove('opacity-0');
